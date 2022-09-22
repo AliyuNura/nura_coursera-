@@ -28,7 +28,7 @@
 #define SIZE (40)
 
 
-unsigned char test[SIZE] = { 34, 201, 190, 154,   8, 194,   2,   6,
+unsigned char test[] = { 34, 201, 190, 154,   8, 194,   2,   6,
                             114, 88,   45,  76, 123,  87,  25,  23,
                             200, 122, 150, 90,   92,  87, 177, 244,
                             201,   6,  12,  60,   8,   2,   5,  67,
@@ -39,9 +39,20 @@ int i;
 void print_array(unsigned char arr[]) {
   int i;
   for(i=0;i<SIZE;i++){
-    printf("%d ",arr[i] );
+    printf("%d,",arr[i] );
   }
 }
+
+void max(unsigned char arr[]){
+    int i,maxnum=0;
+    for(i=1;i<40;i++){
+      if(maxnum<arr[i]){
+        maxnum=arr[i];
+      }
+    }
+    printf("%d\n", maxnum);;
+  }
+
 void find_mean(unsigned char arr[i]){
   float sum=0;
   int i;
@@ -72,20 +83,11 @@ void sort_array(unsigned char arr[]){
         }
     }
     for (int i = 0; i < SIZE; i++) {
-        result = printf("%d ", arr[i]);
+        result = printf("%d,", arr[i]);
       }
   }
 
 
-void max(unsigned char arr[]){
-    int i,maxnum=0;
-    for(i=1;i<SIZE;i++){
-      if(maxnum<arr[i]){
-        maxnum=arr[i];
-      }
-    }
-    printf("%d\n", maxnum);;
-  }
 
 void min(unsigned char arr[]){
     int i;
