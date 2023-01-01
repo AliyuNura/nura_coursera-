@@ -21,105 +21,91 @@
 
 
 
-#include <stdio.h>
-#include "stats.h"
+ #include <stdio.h>
+ #include "stats.h"
 
-/* Size of the Data Set */
-#define SIZE (40)
+ /* Size of the Data Set */
+ #define SIZE (40)
+ int mean,median,mode,maximum,minimum;
 
+ int main() {
+   int test[SIZE] = { 34, 201, 190, 154,   8, 194,   2,   6,
+                              114, 88,   45,  76, 123,  87,  25,  23,
+                              200, 122, 150, 90,   92,  87, 177, 244,
+                              201,   6,  12,  60,   8,   2,   5,  67,
+                                7,  87, 250, 230,  99,   3, 100,  90};
+   /* Other Variable Declarations Go Here */
 
-unsigned char test[] = { 34, 201, 190, 154,   8, 194,   2,   6,
-                            114, 88,   45,  76, 123,  87,  25,  23,
-                            200, 122, 150, 90,   92,  87, 177, 244,
-                            201,   6,  12,  60,   8,   2,   5,  67,
-                              7,  87, 250, 230,  99,   3, 100,  90};
-int i;
-
-
-void print_array(unsigned char arr[]) {
-  int i;
-  for(i=0;i<SIZE;i++){
-    printf("%d,",arr[i] );
-  }
-}
-void sort_array(unsigned char *arr){
-  int result;
-  int temp = 0;
-  int i;
-
-    for (int i = 0; i < SIZE; i++) {
-        for (int j = i+1; j < SIZE; j++) {
-           if(arr[i] < arr[j]) {
-               temp = arr[i];
-               arr[i] = arr[j];
-               arr[j] = temp;
-           }
-        }
-    }
-    for (int i = 0; i < SIZE; i++) {
-        result = printf("%d,", arr[i]);
-      }
-  }
-
-
-void max(unsigned char *arr){
-    int i,maxnum=0;
-    for(i=1;i<40;i++){
-      if(maxnum<arr[i]){
-        maxnum=arr[i];
-      }
-    }
-    printf("%d\n", maxnum);;
-  }
-
-void find_mean(unsigned char *arr){
-  float sum=0;
-  int i;
-  for(i=0;i<SIZE;i++){
-    sum += arr[i];
-  }
-  printf("%f\n", sum/SIZE);
-}
-
-float find_median(unsigned char *arr){
-    float median;
-    median = printf("%f\n",(arr[SIZE/2]+arr[(SIZE/2)+1])/2.0);
-    return median;
-  }
-
-
-
-
-void min(unsigned char *arr){
-    int i;
-      for(i=1;i<SIZE;i++){
-        if(arr[0]>arr[i]){
-          arr[0]=arr[i];
-        }
-      }
-      printf("%d\n", arr[0]);;
-    }
- void print_statistics() {
-   printf("mean:");
-   find_mean(test);
-   printf("median:");
-   find_median(test);
-   printf("minimun number:");
-   min(test);
-   printf("maximum number:");
-   max(test);
-
+   /* Statistics and Printing Functions Go Here */
+   print_array(test,SIZE);
+   find_median(test,&median);
+   find_mean(test,&mean);
+   find_maximum(test,&maximum);
+   find_minimum(test,&minimum);
+   sort_array(test);
+   print_statistics(test);
+   return 0;
  }
-int main()
-    {
-printf("Array:" );
-print_array(test);
-printf("\nSorted array:");
-sort_array(test);
-printf("\n");
-print_statistics();
-    return 0;
-}
 
+ void print_statistics(int test[]){
+   printf("\nMean : %d\n",mean);
+   printf("Median : %d\n",median);
+   printf("Max : %d\n",maximum);
+   printf("Min : %d\n",minimum);
+ }
 
-/* Add other Implementation File Code Here */
+ void print_array(int test[],int n){
+   int i;
+   printf("Array : ");
+   for(i=0;i<SIZE;i++){
+     printf("%d ", test[i]);
+   }
+ }
+
+ void find_median(int test[],int *median){
+   *median = test[SIZE/2];
+ }
+ void find_mean(int test[],int *mean){
+   int i,sum = 0;
+   for(i=0;i<SIZE;i++){
+     sum +=test[i];
+   }
+   *mean = sum/SIZE;
+ }
+
+ void find_maximum(int test[],int *maximum){
+   int i;
+   *maximum = test[0];
+   for(i=1;i<SIZE;i++){
+     if(test[i]>*maximum){
+       *maximum = test[i];
+     }
+   }
+ }
+
+ void find_minimum(int test[],int *minimum){
+   int i;
+   *minimum = test[0];
+   for(i=1;i<SIZE;i++){
+     if(test[i]<*minimum){
+       *minimum = test[i];
+     }
+   }
+ }
+
+ void sort_array(int test[]){
+   int i,j,a;
+   for(i=0;i<SIZE;i++){
+     for(j=i+1;j<SIZE;j++){
+       if(test[i]>test[j]){
+         a = test[i];
+         test[i]=test[j];
+         test[j]=a;
+       }
+     }
+   }
+   printf("\nSorted array : ");
+  for(i=0;i<SIZE;i++){
+    printf("%d ",test[i]);
+  }
+ }
